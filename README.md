@@ -40,19 +40,21 @@ The project will later be upgraded into a complete full-stack application with:
 ## 📷 Screenshots
 
 <img width="1877" height="851" alt="Screenshot 2026-05-27 172104" src="https://github.com/user-attachments/assets/63ca3dfa-3838-4284-afdb-86d3ca240e4c" />
+<img width="1891" height="852" alt="Screenshot 2026-05-27 172233" src="https://github.com/user-attachments/assets/b809ab27-0bd1-420d-8ecc-57d1752c9166" />
 <img width="1893" height="851" alt="Screenshot 2026-05-27 172220" src="https://github.com/user-attachments/assets/5c1d206d-33a4-42d3-b803-6dccd2d00868" />
 <img width="1877" height="852" alt="Screenshot 2026-05-27 172207" src="https://github.com/user-attachments/assets/4f02dbd8-7ddf-4be3-9448-d4b3d5795082" />
 <img width="1870" height="842" alt="Screenshot 2026-05-27 172153" src="https://github.com/user-attachments/assets/9709ca20-2712-4fae-a0d5-017d26cadd19" />
-<img width="1880" height="845" alt="Screenshot 2026-05-27 172132" src="https://github.com/user-attachments/assets/0decc400-190d-450f-9a57-8d52f8fbf28a" />
 <img width="1877" height="851" alt="Screenshot 2026-05-27 172104" src="https://github.com/user-attachments/assets/9a399c4f-5e87-4edc-a8c0-c1444a50f014" />
-<img width="1878" height="859" alt="Screenshot 2026-05-27 172444" src="https://github.com/user-attachments/assets/6574739b-72c1-4833-92fe-bfe4fa6dfdb8" />
-<img width="1891" height="852" alt="Screenshot 2026-05-27 172233" src="https://github.com/user-attachments/assets/b809ab27-0bd1-420d-8ecc-57d1752c9166" />
+<img width="1880" height="845" alt="Screenshot 2026-05-27 172132" src="https://github.com/user-attachments/assets/0decc400-190d-450f-9a57-8d52f8fbf28a" />
+
+
+
 
 
 
 ## 🔗 Live Demo
 
-_Add deployed project link here._
+[_Add deployed project link here._](https://biowastex-byprashant.netlify.app/)
 
 ## 👨‍💻 Author
 
