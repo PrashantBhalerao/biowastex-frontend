@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin Panel — BioWastex</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <img src="assets/biowastex-logo.png" class="logo-sm" alt="logo">
+        <h3>Admin Panel</h3>
+      </div>
+      <nav class="side-nav">
+        <a href="#" class="side-link active" data-view="overview">
+          <span class="nav-icon">📊</span> Overview
+        </a>
+        <a href="#" class="side-link" data-view="submissions">
+          <span class="nav-icon">📋</span> Submissions
+        </a>
+        <a href="#" class="side-link" data-view="categories">
+          <span class="nav-icon">🗂️</span> Categories
+        </a>
+        <a href="#" class="side-link" data-view="tips">
+          <span class="nav-icon">💡</span> Advice
+        </a>
+      </nav>
+      <div class="sidebar-bottom">
+        <button id="themeToggleSidebarAdmin" class="icon-btn" title="Toggle theme">🌙</button>
+        <button id="adminLogout" class="btn outline sm">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="main-header">
+        <h2>Admin Panel 🛠️</h2>
+        <p class="muted">Manage categories, tips and review submissions</p>
+      </header>
+
+      <!-- OVERVIEW -->
+      <section id="view-overview" class="view">
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="s-label">Total Submissions</div>
+            <div class="s-value" id="totalSub">0</div>
+            <div class="s-sub">all time</div>
+          </div>
+          <div class="stat-card">
+            <div class="s-label">Collected</div>
+            <div class="s-value" id="collectedSub">0</div>
+            <div class="s-sub">completed</div>
+          </div>
+          <div class="stat-card">
+            <div class="s-label">Pending</div>
+            <div class="s-value" id="pendingSub">0</div>
+            <div class="s-sub">awaiting pickup</div>
+          </div>
+          <div class="stat-card">
+            <div class="s-label">Categories</div>
+            <div class="s-value" id="catCount">0</div>
+            <div class="s-sub">waste types</div>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <h4>Submissions by Waste Type</h4>
+          <canvas id="adminChart" height="80"></canvas>
+        </div>
+      </section>
+
+      <!-- SUBMISSIONS -->
+      <section id="view-submissions" class="view hidden">
+        <div class="card">
+          <h3 style="margin-bottom:20px">All Submissions</h3>
+          <div id="allSubmissions"></div>
+        </div>
+      </section>
+
+      <!-- CATEGORIES -->
+      <section id="view-categories" class="view hidden">
+        <div class="card">
+          <h3 style="margin-bottom:16px">Waste Categories</h3>
+          <div id="categoryList" class="category-list"></div>
+          <div class="add-row">
+            <input id="newCategory" placeholder="New category name…">
+            <button id="addCategory" class="btn">Add Category</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TIPS / ADVICE -->
+      <section id="view-tips-admin" class="view hidden">
+        <div class="card">
+          <h3 style="margin-bottom:16px">Advisory Tips</h3>
+          <div id="adminTips"></div>
+          <div class="add-row" style="flex-wrap:wrap">
+            <input id="newTipTitle" placeholder="Tip title…" style="min-width:160px">
+            <input id="newTipText" placeholder="Tip description…" style="flex:2; min-width:200px">
+            <button id="addTip" class="btn">Add Tip</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

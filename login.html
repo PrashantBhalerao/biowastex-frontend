@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login — BioWastex</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar small">
+    <a href="index.html" class="brand">
+      <img src="assets/biowastex-logo.png" alt="BioWastex" class="logo">
+      <div class="brand-text"><h1>BioWastex</h1></div>
+    </a>
+    <div class="top-actions">
+      <button id="themeToggleHeader" class="icon-btn" aria-label="Toggle theme">🌙</button>
+      <a class="btn outline" href="index.html">← Home</a>
+    </div>
+  </header>
+
+  <main class="form-page">
+    <div class="form-card">
+      <div class="form-card-header">
+        <img src="assets/biowastex-logo.png" class="logo-lg" alt="logo">
+        <h2>Welcome back</h2>
+        <p>Sign in to your BioWastex account</p>
+      </div>
+
+      <form id="loginForm" class="form">
+        <label>Username
+          <input id="loginUsername" required autocomplete="username" placeholder="Enter your username">
+        </label>
+
+        <label>Password
+          <input id="loginPassword" type="password" required autocomplete="current-password" placeholder="Enter your password">
+        </label>
+
+        <label>Role
+          <select id="loginRole">
+            <option value="user">👤 User</option>
+            <option value="admin">🛠️ Admin</option>
+          </select>
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" class="btn">Sign In →</button>
+        </div>
+
+        <p id="loginMessage" class="muted small"></p>
+      </form>
+
+      <div class="form-footer">
+        Don't have an account? <a href="register.html">Register here</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/theme.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

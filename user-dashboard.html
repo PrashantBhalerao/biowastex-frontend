@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard — BioWastex</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <img src="assets/biowastex-logo.png" class="logo-sm" alt="logo">
+        <h3>BioWastex</h3>
+      </div>
+      <nav class="side-nav">
+        <a href="#" class="side-link active" data-view="dashboard">
+          <span class="nav-icon">🏠</span> Dashboard
+        </a>
+        <a href="#" class="side-link" data-view="submit">
+          <span class="nav-icon">📦</span> Submit Waste
+        </a>
+        <a href="#" class="side-link" data-view="history">
+          <span class="nav-icon">📋</span> My History
+        </a>
+        <a href="#" class="side-link" data-view="tips">
+          <span class="nav-icon">💡</span> Advisory Tips
+        </a>
+      </nav>
+      <div class="sidebar-bottom">
+        <button id="themeToggleSidebar" class="icon-btn" title="Toggle theme">🌙</button>
+        <button id="userLogout" class="btn outline sm">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="main-header">
+        <h2 id="uGreeting">Welcome back 👋</h2>
+        <p class="muted" id="uSub">Manage your waste submissions</p>
+      </header>
+
+      <!-- DASHBOARD VIEW -->
+      <section id="view-dashboard" class="view">
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="s-label">Pending</div>
+            <div class="s-value" id="pendingCount">0</div>
+            <div class="s-sub">requests in queue</div>
+          </div>
+          <div class="stat-card">
+            <div class="s-label">Collected</div>
+            <div class="s-value" id="collectedCount">0</div>
+            <div class="s-sub">completed pickups</div>
+          </div>
+          <div class="stat-card">
+            <div class="s-label">Total</div>
+            <div class="s-value" id="totalCount">0</div>
+            <div class="s-sub">all submissions</div>
+          </div>
+        </div>
+
+        <div class="tip-banner" id="quickTipBanner">
+          <div class="tip-banner-icon">💡</div>
+          <div class="tip-banner-text">
+            <strong>Quick Tip</strong>
+            <p id="tipShort">Loading tip…</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h4 style="margin-bottom:14px; font-size:16px; color:var(--text2); font-family:var(--font-mono); font-weight:500;">Recent Activity</h4>
+          <div id="recentActivity"></div>
+        </div>
+      </section>
+
+      <!-- SUBMIT VIEW -->
+      <section id="view-submit" class="view hidden">
+        <div class="card">
+          <h3 style="margin-bottom:20px">Submit Waste Pickup</h3>
+          <form id="submitForm" class="form">
+            <label>Waste type
+              <select id="wasteCategory"></select>
+            </label>
+            <label>Quantity (kg)
+              <input id="wasteQty" type="number" min="0" step="0.1" value="1">
+            </label>
+            <label>Address
+              <textarea id="wasteAddress" rows="3" placeholder="Enter your pickup address…"></textarea>
+            </label>
+            <div class="form-actions">
+              <button type="submit" class="btn">Request Pickup →</button>
+              <button type="button" id="clearUserSubs" class="btn outline">Clear Mine</button>
+            </div>
+            <p id="submitMsg" class="muted small"></p>
+          </form>
+        </div>
+      </section>
+
+      <!-- HISTORY VIEW -->
+      <section id="view-history" class="view hidden">
+        <div class="card">
+          <h3 style="margin-bottom:20px">My Submissions</h3>
+          <div id="mySubmissions"></div>
+        </div>
+      </section>
+
+      <!-- TIPS VIEW -->
+      <section id="view-tips" class="view hidden">
+        <div class="card">
+          <h3 style="margin-bottom:20px">Advisory Tips</h3>
+          <div id="tipsList"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/theme.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/user.js"></script>
+</body>
+</html>
