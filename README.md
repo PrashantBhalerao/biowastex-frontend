@@ -54,7 +54,7 @@ The project will later be upgraded into a complete full-stack application with:
 
 ## 🔗 Live Demo
 
-[_Add deployed project link here._](https://biowastex-byprashant.netlify.app/)
+https://biowastex-byprashant.netlify.app/
 
 ## 👨‍💻 Author
 
