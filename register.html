@@ -1,63 +1,97 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Register — BioWastex</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header class="topbar small">
+
+  <nav class="navbar compact">
     <a href="index.html" class="brand">
-      <img src="assets/biowastex-logo.png" alt="BioWastex" class="logo">
-      <div class="brand-text"><h1>BioWastex</h1></div>
-    </a>
-    <div class="top-actions">
-      <button id="themeToggleHeader2" class="icon-btn" aria-label="Toggle theme">🌙</button>
-      <a class="btn outline" href="index.html">← Home</a>
-    </div>
-  </header>
-
-  <main class="form-page">
-    <div class="form-card">
-      <div class="form-card-header">
-        <img src="assets/biowastex-logo.png" class="logo-lg" alt="logo">
-        <h2>Create account</h2>
-        <p>Join BioWastex and start managing waste</p>
+      <img src="assets/biowastex-logo.png" alt="BioWastex" class="brand-logo">
+      <div>
+        <span class="brand-name">BioWastex</span>
       </div>
+    </a>
+    <div class="nav-right">
+      <button class="theme-btn icon-btn" aria-label="Toggle theme">☀️</button>
+      <a href="index.html" class="btn btn-ghost btn-sm">← Home</a>
+    </div>
+  </nav>
 
-      <form id="registerForm" class="form">
-        <label>Username
-          <input id="regUsername" required placeholder="Choose a username">
-        </label>
+  <main class="auth-page">
+    <div class="auth-orb"></div>
+    <div class="auth-card">
+      <img src="assets/biowastex-logo.png" class="auth-logo" alt="logo">
+      <h2 class="auth-title">Create account</h2>
+      <p class="auth-sub">Join BioWastex and start managing waste smartly</p>
 
-        <label>Password
-          <input id="regPassword" type="password" required placeholder="Create a password">
-        </label>
-
-        <label>Role
-          <select id="regRole" required>
-            <option value="">— Select role —</option>
-            <option value="user">👤 User</option>
-            <option value="admin">🛠️ Admin</option>
-          </select>
-        </label>
-
-        <div class="form-actions">
-          <button type="submit" class="btn">Create Account →</button>
+      <form id="registerForm" class="form" novalidate>
+        <div class="field">
+          <label>Username</label>
+          <div class="input-wrap">
+            <span class="field-icon">👤</span>
+            <input id="regUsername" type="text" placeholder="Choose a username (min 3 chars)" required>
+          </div>
         </div>
 
-        <p id="regMessage" class="muted small"></p>
+        <div class="field">
+          <label>Password</label>
+          <div class="input-wrap">
+            <span class="field-icon">🔑</span>
+            <input id="regPassword" type="password" placeholder="Create a password (min 4 chars)" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Role</label>
+          <select id="regRole" required>
+            <option value="">— Select your role —</option>
+            <option value="user">👤 User — submit waste pickup requests</option>
+            <option value="admin">🛠️ Admin — manage categories &amp; all submissions</option>
+          </select>
+        </div>
+
+        <p id="regMsg" class="form-msg"></p>
+
+        <button type="submit" class="btn btn-primary btn-full" style="padding:13px">Create Account →</button>
       </form>
 
-      <div class="form-footer">
+      <div class="auth-footer">
         Already have an account? <a href="login.html">Sign in</a>
       </div>
     </div>
   </main>
 
-  <script src="js/theme.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/auth.js"></script>
+  <script src="js/core.js"></script>
+  <script>
+    BW.initTheme();
+
+    const sess = BW.getSession();
+    if (sess) window.location.href = sess.role === 'admin' ? 'admin-dashboard.html' : 'user-dashboard.html';
+
+    const form = document.getElementById('registerForm');
+    const msg  = document.getElementById('regMsg');
+
+    function setMsg(text, type) {
+      msg.textContent = text;
+      msg.className = 'form-msg ' + (type || '');
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const username = document.getElementById('regUsername').value.trim();
+      const password = document.getElementById('regPassword').value.trim();
+      const role     = document.getElementById('regRole').value;
+
+      const result = BW.register(username, password, role);
+      if (!result.ok) { setMsg('✗ ' + result.msg, 'error'); return; }
+
+      setMsg('✓ Account created! Taking you to login…', 'success');
+      setTimeout(() => window.location.href = 'login.html', 1000);
+    });
+  </script>
 </body>
 </html>

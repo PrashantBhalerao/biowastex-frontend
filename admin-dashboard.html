@@ -1,112 +1,400 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Admin Panel — BioWastex</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="app">
-    <aside class="sidebar">
-      <div class="sidebar-top">
-        <img src="assets/biowastex-logo.png" class="logo-sm" alt="logo">
-        <h3>Admin Panel</h3>
-      </div>
-      <nav class="side-nav">
-        <a href="#" class="side-link active" data-view="overview">
-          <span class="nav-icon">📊</span> Overview
-        </a>
-        <a href="#" class="side-link" data-view="submissions">
-          <span class="nav-icon">📋</span> Submissions
-        </a>
-        <a href="#" class="side-link" data-view="categories">
-          <span class="nav-icon">🗂️</span> Categories
-        </a>
-        <a href="#" class="side-link" data-view="tips">
-          <span class="nav-icon">💡</span> Advice
-        </a>
-      </nav>
-      <div class="sidebar-bottom">
-        <button id="themeToggleSidebarAdmin" class="icon-btn" title="Toggle theme">🌙</button>
-        <button id="adminLogout" class="btn outline sm">Logout</button>
-      </div>
-    </aside>
 
-    <main class="main">
-      <header class="main-header">
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <img src="assets/biowastex-logo.png" alt="logo">
+      <div class="sidebar-brand-text">
+        <span>BioWastex</span>
+        <small>admin panel</small>
+      </div>
+    </div>
+
+    <span class="sidebar-section-label">Manage</span>
+
+    <div class="nav-link-group" style="display:flex;flex-direction:column;gap:4px">
+      <a class="nav-link active" data-view="overview" href="#">
+        <span class="nav-icon">📊</span> Overview
+      </a>
+      <a class="nav-link" data-view="submissions" href="#">
+        <span class="nav-icon">📋</span> Submissions
+        <span class="badge-count" id="subBadge">0</span>
+      </a>
+      <a class="nav-link" data-view="categories" href="#">
+        <span class="nav-icon">🗂️</span> Categories
+      </a>
+      <a class="nav-link" data-view="tips" href="#">
+        <span class="nav-icon">💡</span> Tips &amp; Advice
+      </a>
+    </div>
+
+    <div class="sidebar-spacer"></div>
+
+    <div class="sidebar-footer">
+      <div class="user-avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">A</div>
+      <button class="theme-btn icon-btn" title="Toggle theme">☀️</button>
+      <button id="logoutBtn" class="btn btn-ghost btn-sm">Logout</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="dash-main">
+
+    <div class="dash-header">
+      <div>
         <h2>Admin Panel 🛠️</h2>
-        <p class="muted">Manage categories, tips and review submissions</p>
-      </header>
+        <p class="text-muted">Manage categories, tips and all pickup submissions</p>
+      </div>
+    </div>
 
-      <!-- OVERVIEW -->
-      <section id="view-overview" class="view">
-        <div class="stats-row">
-          <div class="stat-card">
-            <div class="s-label">Total Submissions</div>
-            <div class="s-value" id="totalSub">0</div>
-            <div class="s-sub">all time</div>
-          </div>
-          <div class="stat-card">
-            <div class="s-label">Collected</div>
-            <div class="s-value" id="collectedSub">0</div>
-            <div class="s-sub">completed</div>
-          </div>
-          <div class="stat-card">
-            <div class="s-label">Pending</div>
-            <div class="s-value" id="pendingSub">0</div>
-            <div class="s-sub">awaiting pickup</div>
-          </div>
-          <div class="stat-card">
-            <div class="s-label">Categories</div>
-            <div class="s-value" id="catCount">0</div>
-            <div class="s-sub">waste types</div>
+    <!-- ── VIEW: OVERVIEW ── -->
+    <section id="view-overview" class="view">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="sc-label">Total Submissions</div>
+          <div class="sc-value" id="sTotalSub">0</div>
+          <div class="sc-sub">all time</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-label">Pending</div>
+          <div class="sc-value" id="sPending" style="color:var(--amber)">0</div>
+          <div class="sc-sub">awaiting pickup</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-label">Collected</div>
+          <div class="sc-value" id="sCollected" style="color:var(--lime)">0</div>
+          <div class="sc-sub">completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-label">Categories</div>
+          <div class="sc-value" id="sCats">0</div>
+          <div class="sc-sub">waste types</div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <h4>Submissions by Waste Type</h4>
+        <canvas id="adminChart"></canvas>
+      </div>
+    </section>
+
+    <!-- ── VIEW: SUBMISSIONS ── -->
+    <section id="view-submissions" class="view hidden">
+      <div class="card">
+        <div class="view-header">
+          <h3>All Submissions</h3>
+          <span id="subCount" class="text-muted text-sm"></span>
+        </div>
+        <div id="submissionsList"></div>
+      </div>
+    </section>
+
+    <!-- ── VIEW: CATEGORIES ── -->
+    <section id="view-categories" class="view hidden">
+      <div class="card">
+        <div class="view-header">
+          <h3>Waste Categories</h3>
+        </div>
+        <div id="catList" class="cat-tags"></div>
+        <div class="add-row">
+          <input id="newCatInput" placeholder="New category name…" maxlength="40">
+          <button id="addCatBtn" class="btn btn-primary btn-sm">Add Category</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── VIEW: TIPS ── -->
+    <section id="view-tips" class="view hidden">
+      <div class="card">
+        <div class="view-header">
+          <h3>Advisory Tips</h3>
+        </div>
+        <div id="adminTipsList"></div>
+        <div class="add-row" style="flex-wrap:wrap">
+          <input id="newTipTitle" placeholder="Tip title…" style="min-width:160px;max-width:220px">
+          <input id="newTipText"  placeholder="Tip description…" style="flex:2;min-width:200px">
+          <button id="addTipBtn" class="btn btn-primary btn-sm">Add Tip</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="js/core.js"></script>
+<script>
+  BW.initTheme();
+
+  // ── AUTH GUARD ────────────────────────────
+  const sess = BW.requireAuth('admin');
+  if (!sess) throw new Error('auth failed');
+
+  let chartInstance = null;
+
+  // ── NAVIGATION ───────────────────────────
+  function showView(name) {
+    document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+    const el = document.getElementById('view-' + name);
+    if (el) el.classList.remove('hidden');
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.toggle('active', l.dataset.view === name));
+    if (name === 'overview')    { refreshStats(); renderChart(); }
+    if (name === 'submissions') renderSubmissions();
+    if (name === 'categories')  renderCategories();
+    if (name === 'tips')        renderTips();
+  }
+
+  document.querySelectorAll('[data-view]').forEach(el => {
+    el.addEventListener('click', e => { e.preventDefault(); showView(el.dataset.view); });
+  });
+
+  // ── STATS ─────────────────────────────────
+  function refreshStats() {
+    const s = BW.getStore();
+    const pending   = s.submissions.filter(x => x.status === 'pending').length;
+    const collected = s.submissions.filter(x => x.status === 'collected').length;
+    document.getElementById('sTotalSub').textContent = s.submissions.length;
+    document.getElementById('sPending').textContent  = pending;
+    document.getElementById('sCollected').textContent= collected;
+    document.getElementById('sCats').textContent     = s.categories.length;
+    document.getElementById('subBadge').textContent  = s.submissions.length;
+    document.getElementById('subCount').textContent  = `${s.submissions.length} total`;
+  }
+
+  // ── CHART ────────────────────────────────
+  function renderChart() {
+    const s = BW.getStore();
+    const counts = {};
+    s.categories.forEach(c => counts[c] = 0);
+    s.submissions.forEach(sub => {
+      if (counts[sub.waste_type] !== undefined) counts[sub.waste_type]++;
+      else counts[sub.waste_type] = 1;
+    });
+    const labels = Object.keys(counts);
+    const data   = Object.values(counts);
+    const colors = ['#8B5CF6','#22D3EE','#A3E635','#FB923C','#F472B6','#60A5FA','#34D399','#FBBF24'];
+    const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+    const gridColor = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.06)';
+    const tickColor = isDark ? '#475569' : '#94A3B8';
+
+    if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
+    const ctx = document.getElementById('adminChart');
+    if (!ctx) return;
+
+    chartInstance = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels.map(l => l.charAt(0).toUpperCase() + l.slice(1)),
+        datasets: [{
+          label: 'Submissions',
+          data,
+          backgroundColor: colors.slice(0, labels.length),
+          borderRadius: 8,
+          borderSkipped: false,
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: isDark ? '#1A2236' : '#fff',
+            titleColor: isDark ? '#F1F5F9' : '#0F172A',
+            bodyColor: isDark ? '#94A3B8' : '#334155',
+            borderColor: isDark ? 'rgba(139,92,246,0.3)' : 'rgba(99,102,241,0.2)',
+            borderWidth: 1,
+            cornerRadius: 10,
+            padding: 12
+          }
+        },
+        scales: {
+          x: { grid: { color: gridColor }, ticks: { color: tickColor } },
+          y: { grid: { color: gridColor }, ticks: { color: tickColor, stepSize: 1 }, beginAtZero: true }
+        }
+      }
+    });
+  }
+
+  // ── SUBMISSIONS ──────────────────────────
+  function renderSubmissions() {
+    const s = BW.getStore();
+    const list = document.getElementById('submissionsList');
+    if (!s.submissions.length) {
+      list.innerHTML = `<div class="empty-state"><span class="empty-state-icon">📭</span><p>No submissions yet.</p></div>`;
+      return;
+    }
+    list.innerHTML = s.submissions.slice().reverse().map(r => `
+      <div class="submission-item" id="sub-${r.id}">
+        <div class="submission-info">
+          <div class="submission-title">${r.username} — ${r.waste_type.charAt(0).toUpperCase() + r.waste_type.slice(1)}</div>
+          <div class="submission-meta">
+            <span class="meta-tag">⚖️ ${r.quantity} kg</span>
+            <span class="meta-tag">📅 ${r.date}</span>
+            ${r.address ? `<span class="meta-tag">📍 ${r.address}</span>` : ''}
           </div>
         </div>
-        <div class="chart-wrap">
-          <h4>Submissions by Waste Type</h4>
-          <canvas id="adminChart" height="80"></canvas>
+        <div class="submission-actions">
+          ${r.status !== 'collected'
+            ? `<button class="btn btn-sm btn-lime collectBtn" data-id="${r.id}">✓ Collect</button>`
+            : `<span class="status-badge collected">✓ Collected</span>`}
+          <button class="btn btn-sm btn-danger deleteBtn" data-id="${r.id}">Delete</button>
         </div>
-      </section>
+      </div>`).join('');
 
-      <!-- SUBMISSIONS -->
-      <section id="view-submissions" class="view hidden">
-        <div class="card">
-          <h3 style="margin-bottom:20px">All Submissions</h3>
-          <div id="allSubmissions"></div>
+    list.querySelectorAll('.collectBtn').forEach(btn => btn.addEventListener('click', e => {
+      const id = Number(e.currentTarget.dataset.id);
+      const s = BW.getStore();
+      s.submissions = s.submissions.map(x => x.id === id ? { ...x, status: 'collected' } : x);
+      BW.saveStore(s);
+      BW.toast('Marked as collected!', 'success');
+      renderSubmissions(); refreshStats();
+    }));
+
+    list.querySelectorAll('.deleteBtn').forEach(btn => btn.addEventListener('click', e => {
+      const id = Number(e.currentTarget.dataset.id);
+      if (!confirm('Delete this submission? This cannot be undone.')) return;
+      const s = BW.getStore();
+      s.submissions = s.submissions.filter(x => x.id !== id);
+      BW.saveStore(s);
+      BW.toast('Submission deleted.', 'info');
+      renderSubmissions(); refreshStats();
+    }));
+  }
+
+  // ── CATEGORIES ──────────────────────────
+  const CAT_COLORS = { organic:'#4ade80', plastic:'#60a5fa', paper:'#fb923c', glass:'#c084fc', metal:'#94a3b8', hazardous:'#f87171' };
+
+  function renderCategories() {
+    const s = BW.getStore();
+    const list = document.getElementById('catList');
+    if (!s.categories.length) {
+      list.innerHTML = `<p class="text-muted text-sm">No categories yet.</p>`;
+      return;
+    }
+    list.innerHTML = s.categories.map(cat => {
+      const col = CAT_COLORS[cat] || '#8B5CF6';
+      return `<div class="cat-tag">
+        <span style="width:8px;height:8px;border-radius:50%;background:${col};display:inline-block;flex-shrink:0"></span>
+        ${cat.charAt(0).toUpperCase() + cat.slice(1)}
+        <span class="cat-tag-remove" data-cat="${cat}" title="Remove">×</span>
+      </div>`;
+    }).join('');
+
+    list.querySelectorAll('.cat-tag-remove').forEach(btn => btn.addEventListener('click', e => {
+      const cat = e.currentTarget.dataset.cat;
+      if (!confirm(`Delete category "${cat}"?`)) return;
+      const s = BW.getStore();
+      s.categories = s.categories.filter(c => c !== cat);
+      BW.saveStore(s);
+      BW.toast(`Category "${cat}" removed.`, 'info');
+      renderCategories(); refreshStats();
+    }));
+  }
+
+  document.getElementById('addCatBtn').addEventListener('click', () => {
+    const val = document.getElementById('newCatInput').value.trim().toLowerCase();
+    if (!val) { BW.toast('Enter a category name.', 'error'); return; }
+    const s = BW.getStore();
+    if (s.categories.includes(val)) { BW.toast('Category already exists.', 'error'); return; }
+    s.categories.push(val);
+    BW.saveStore(s);
+    document.getElementById('newCatInput').value = '';
+    BW.toast(`Category "${val}" added!`, 'success');
+    renderCategories(); refreshStats();
+  });
+  document.getElementById('newCatInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('addCatBtn').click();
+  });
+
+  // ── TIPS ─────────────────────────────────
+  const TIP_ICONS = ['🌿','♻️','📦','💧','🔋','🌱','🗑️','🌍'];
+
+  function renderTips() {
+    const s = BW.getStore();
+    const list = document.getElementById('adminTipsList');
+    if (!s.tips.length) {
+      list.innerHTML = `<div class="empty-state"><span class="empty-state-icon">💡</span><p>No tips yet. Add one below!</p></div>`;
+      return;
+    }
+    list.innerHTML = s.tips.map((t, i) => `
+      <div class="tip-row">
+        <div class="tip-emoji">${TIP_ICONS[i % TIP_ICONS.length]}</div>
+        <div class="tip-body" style="flex:1"><strong>${t.title}</strong><p>${t.text}</p></div>
+        <div style="display:flex;gap:6px;flex-shrink:0;align-items:center">
+          <button class="btn btn-ghost btn-xs editTipBtn" data-id="${t.id}">Edit</button>
+          <button class="btn btn-danger btn-xs delTipBtn" data-id="${t.id}">Delete</button>
         </div>
-      </section>
+      </div>`).join('');
 
-      <!-- CATEGORIES -->
-      <section id="view-categories" class="view hidden">
-        <div class="card">
-          <h3 style="margin-bottom:16px">Waste Categories</h3>
-          <div id="categoryList" class="category-list"></div>
-          <div class="add-row">
-            <input id="newCategory" placeholder="New category name…">
-            <button id="addCategory" class="btn">Add Category</button>
-          </div>
-        </div>
-      </section>
+    list.querySelectorAll('.editTipBtn').forEach(btn => btn.addEventListener('click', e => {
+      const id = Number(e.currentTarget.dataset.id);
+      const s = BW.getStore();
+      const tip = s.tips.find(x => x.id === id);
+      if (!tip) return;
+      const newTitle = prompt('Edit title:', tip.title);
+      if (newTitle === null) return;
+      const newText = prompt('Edit description:', tip.text);
+      if (newText === null) return;
+      tip.title = newTitle.trim() || tip.title;
+      tip.text  = newText.trim()  || tip.text;
+      BW.saveStore(s);
+      BW.toast('Tip updated!', 'success');
+      renderTips();
+    }));
 
-      <!-- TIPS / ADVICE -->
-      <section id="view-tips-admin" class="view hidden">
-        <div class="card">
-          <h3 style="margin-bottom:16px">Advisory Tips</h3>
-          <div id="adminTips"></div>
-          <div class="add-row" style="flex-wrap:wrap">
-            <input id="newTipTitle" placeholder="Tip title…" style="min-width:160px">
-            <input id="newTipText" placeholder="Tip description…" style="flex:2; min-width:200px">
-            <button id="addTip" class="btn">Add Tip</button>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
+    list.querySelectorAll('.delTipBtn').forEach(btn => btn.addEventListener('click', e => {
+      const id = Number(e.currentTarget.dataset.id);
+      if (!confirm('Delete this tip?')) return;
+      const s = BW.getStore();
+      s.tips = s.tips.filter(x => x.id !== id);
+      BW.saveStore(s);
+      BW.toast('Tip deleted.', 'info');
+      renderTips();
+    }));
+  }
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="js/theme.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/admin.js"></script>
+  document.getElementById('addTipBtn').addEventListener('click', () => {
+    const title = document.getElementById('newTipTitle').value.trim();
+    const text  = document.getElementById('newTipText').value.trim();
+    if (!title || !text) { BW.toast('Enter both title and description.', 'error'); return; }
+    const s = BW.getStore();
+    s.tips.push({ id: Date.now(), title, text });
+    BW.saveStore(s);
+    document.getElementById('newTipTitle').value = '';
+    document.getElementById('newTipText').value  = '';
+    BW.toast('Tip added!', 'success');
+    renderTips();
+  });
+
+  // ── LOGOUT ────────────────────────────────
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    BW.clearSession();
+    window.location.href = 'login.html';
+  });
+
+  // Re-render chart on theme change
+  document.addEventListener('click', e => {
+    if (e.target.closest('.theme-btn')) {
+      setTimeout(() => {
+        const activeView = document.querySelector('.nav-link.active');
+        if (activeView?.dataset.view === 'overview') renderChart();
+      }, 50);
+    }
+  });
+
+  // ── INIT ─────────────────────────────────
+  showView('overview');
+</script>
 </body>
 </html>

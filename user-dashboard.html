@@ -1,121 +1,313 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Dashboard — BioWastex</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="app">
-    <aside class="sidebar">
-      <div class="sidebar-top">
-        <img src="assets/biowastex-logo.png" class="logo-sm" alt="logo">
-        <h3>BioWastex</h3>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <img src="assets/biowastex-logo.png" alt="logo">
+      <div class="sidebar-brand-text">
+        <span>BioWastex</span>
+        <small>user panel</small>
       </div>
-      <nav class="side-nav">
-        <a href="#" class="side-link active" data-view="dashboard">
-          <span class="nav-icon">🏠</span> Dashboard
-        </a>
-        <a href="#" class="side-link" data-view="submit">
-          <span class="nav-icon">📦</span> Submit Waste
-        </a>
-        <a href="#" class="side-link" data-view="history">
-          <span class="nav-icon">📋</span> My History
-        </a>
-        <a href="#" class="side-link" data-view="tips">
-          <span class="nav-icon">💡</span> Advisory Tips
-        </a>
-      </nav>
-      <div class="sidebar-bottom">
-        <button id="themeToggleSidebar" class="icon-btn" title="Toggle theme">🌙</button>
-        <button id="userLogout" class="btn outline sm">Logout</button>
+    </div>
+
+    <span class="sidebar-section-label">Menu</span>
+
+    <div class="nav-link-group" style="display:flex;flex-direction:column;gap:4px">
+      <a class="nav-link active" data-view="dashboard" href="#">
+        <span class="nav-icon">🏠</span> Dashboard
+      </a>
+      <a class="nav-link" data-view="submit" href="#">
+        <span class="nav-icon">📦</span> Submit Pickup
+      </a>
+      <a class="nav-link" data-view="history" href="#">
+        <span class="nav-icon">📋</span> My History
+        <span class="badge-count" id="historyBadge">0</span>
+      </a>
+      <a class="nav-link" data-view="tips" href="#">
+        <span class="nav-icon">💡</span> Tips &amp; Advice
+      </a>
+    </div>
+
+    <div class="sidebar-spacer"></div>
+
+    <div class="sidebar-footer">
+      <div class="user-avatar" id="userAvatar">U</div>
+      <button class="theme-btn icon-btn" title="Toggle theme">☀️</button>
+      <button id="logoutBtn" class="btn btn-ghost btn-sm">Logout</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="dash-main">
+
+    <div class="dash-header">
+      <div>
+        <h2 id="greetMsg">Welcome back 👋</h2>
+        <p id="greetSub" class="text-muted">Manage your waste submissions here</p>
       </div>
-    </aside>
+    </div>
 
-    <main class="main">
-      <header class="main-header">
-        <h2 id="uGreeting">Welcome back 👋</h2>
-        <p class="muted" id="uSub">Manage your waste submissions</p>
-      </header>
+    <!-- ── VIEW: DASHBOARD ── -->
+    <section id="view-dashboard" class="view">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="sc-label">Pending</div>
+          <div class="sc-value" id="cntPending">0</div>
+          <div class="sc-sub">awaiting pickup</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-label">Collected</div>
+          <div class="sc-value" id="cntCollected">0</div>
+          <div class="sc-sub">completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-label">Total</div>
+          <div class="sc-value" id="cntTotal">0</div>
+          <div class="sc-sub">all time</div>
+        </div>
+      </div>
 
-      <!-- DASHBOARD VIEW -->
-      <section id="view-dashboard" class="view">
-        <div class="stats-row">
-          <div class="stat-card">
-            <div class="s-label">Pending</div>
-            <div class="s-value" id="pendingCount">0</div>
-            <div class="s-sub">requests in queue</div>
+      <div class="tip-banner" id="quickTipBanner">
+        <div class="tip-banner-icon">💡</div>
+        <div>
+          <strong>Quick Tip</strong>
+          <p id="quickTipText">Loading…</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="view-header">
+          <h3>Recent Activity</h3>
+          <a href="#" class="btn btn-ghost btn-sm" data-view="submit">+ New Pickup</a>
+        </div>
+        <div id="recentList"></div>
+      </div>
+    </section>
+
+    <!-- ── VIEW: SUBMIT ── -->
+    <section id="view-submit" class="view hidden">
+      <div class="card">
+        <div class="view-header">
+          <h3>Submit Waste Pickup</h3>
+        </div>
+        <form id="submitForm" class="form" novalidate>
+          <div class="field">
+            <label>Waste Type</label>
+            <select id="wasteType"></select>
           </div>
-          <div class="stat-card">
-            <div class="s-label">Collected</div>
-            <div class="s-value" id="collectedCount">0</div>
-            <div class="s-sub">completed pickups</div>
+          <div class="field">
+            <label>Quantity (kg)</label>
+            <input id="wasteQty" type="number" min="0.1" step="0.1" value="1" placeholder="e.g. 2.5">
           </div>
-          <div class="stat-card">
-            <div class="s-label">Total</div>
-            <div class="s-value" id="totalCount">0</div>
-            <div class="s-sub">all submissions</div>
+          <div class="field">
+            <label>Pickup Address</label>
+            <textarea id="wasteAddr" placeholder="Enter your full pickup address…"></textarea>
+          </div>
+          <p id="submitMsg" class="form-msg"></p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button type="submit" class="btn btn-primary">Request Pickup →</button>
+            <button type="button" id="clearMyBtn" class="btn btn-ghost btn-sm">Clear My History</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ── VIEW: HISTORY ── -->
+    <section id="view-history" class="view hidden">
+      <div class="card">
+        <div class="view-header">
+          <h3>My Submissions</h3>
+        </div>
+        <div id="historyList"></div>
+      </div>
+    </section>
+
+    <!-- ── VIEW: TIPS ── -->
+    <section id="view-tips" class="view hidden">
+      <div class="card">
+        <div class="view-header">
+          <h3>Advisory Tips</h3>
+        </div>
+        <div id="tipsList"></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="js/core.js"></script>
+<script>
+  BW.initTheme();
+
+  // ── AUTH GUARD ────────────────────────────
+  const sess = BW.requireAuth('user');
+  if (!sess) throw new Error('auth failed');
+
+  // ── GREETING ────────────────────────────
+  document.getElementById('greetMsg').textContent = `Hey, ${sess.username} 👋`;
+  document.getElementById('userAvatar').textContent = sess.username.charAt(0).toUpperCase();
+
+  // ── NAVIGATION ───────────────────────────
+  function showView(name) {
+    document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+    const el = document.getElementById('view-' + name);
+    if (el) el.classList.remove('hidden');
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.toggle('active', l.dataset.view === name));
+    if (name === 'submit') populateCategories();
+    if (name === 'tips')   renderTips();
+    if (name === 'history') renderHistory();
+    if (name === 'dashboard') renderDashboard();
+  }
+
+  document.querySelectorAll('[data-view]').forEach(el => {
+    el.addEventListener('click', e => { e.preventDefault(); showView(el.dataset.view); });
+  });
+
+  // ── POPULATE CATEGORY SELECT ─────────────
+  function populateCategories() {
+    const s = BW.getStore();
+    const sel = document.getElementById('wasteType');
+    sel.innerHTML = s.categories.map(c =>
+      `<option value="${c}">${c.charAt(0).toUpperCase() + c.slice(1)}</option>`
+    ).join('');
+  }
+
+  // ── RENDER DASHBOARD ─────────────────────
+  function renderDashboard() {
+    const s = BW.getStore();
+    const mine = s.submissions.filter(x => x.username === sess.username);
+    const pending   = mine.filter(x => x.status === 'pending').length;
+    const collected = mine.filter(x => x.status === 'collected').length;
+
+    document.getElementById('cntPending').textContent   = pending;
+    document.getElementById('cntCollected').textContent = collected;
+    document.getElementById('cntTotal').textContent     = mine.length;
+    document.getElementById('historyBadge').textContent = mine.length;
+    document.getElementById('greetSub').textContent     = `${pending} pending · ${collected} collected`;
+
+    // Quick tip
+    const tip = s.tips.length ? s.tips[Math.floor(Math.random() * s.tips.length)] : null;
+    document.getElementById('quickTipText').textContent = tip ? tip.text : 'No tips yet — check back later!';
+
+    // Recent (last 4)
+    const recent = mine.slice().reverse().slice(0, 4);
+    const list = document.getElementById('recentList');
+    if (!recent.length) {
+      list.innerHTML = `<div class="empty-state"><span class="empty-state-icon">🌱</span><p>No activity yet. Submit your first pickup!</p></div>`;
+      return;
+    }
+    list.innerHTML = recent.map(r => submissionHTML(r, false)).join('');
+  }
+
+  // ── RENDER HISTORY ───────────────────────
+  function renderHistory() {
+    const s = BW.getStore();
+    const mine = s.submissions.filter(x => x.username === sess.username).slice().reverse();
+    const list = document.getElementById('historyList');
+    if (!mine.length) {
+      list.innerHTML = `<div class="empty-state"><span class="empty-state-icon">📭</span><p>No submissions yet. Go submit a pickup!</p></div>`;
+      return;
+    }
+    list.innerHTML = mine.map(r => submissionHTML(r, false)).join('');
+  }
+
+  // ── RENDER TIPS ──────────────────────────
+  const TIP_ICONS = ['🌿','♻️','📦','💧','🔋','🌱','🗑️','🌍'];
+  function renderTips() {
+    const s = BW.getStore();
+    const list = document.getElementById('tipsList');
+    if (!s.tips.length) {
+      list.innerHTML = `<div class="empty-state"><span class="empty-state-icon">💡</span><p>No tips added yet by admin.</p></div>`;
+      return;
+    }
+    list.innerHTML = s.tips.map((t, i) => `
+      <div class="tip-row">
+        <div class="tip-emoji">${TIP_ICONS[i % TIP_ICONS.length]}</div>
+        <div class="tip-body"><strong>${t.title}</strong><p>${t.text}</p></div>
+      </div>`).join('');
+  }
+
+  // ── SUBMISSION HTML HELPER ───────────────
+  function submissionHTML(r, showDelete) {
+    const statusBadge = r.status === 'collected'
+      ? `<span class="status-badge collected">✓ Collected</span>`
+      : `<span class="status-badge pending">⏳ Pending</span>`;
+    return `
+      <div class="submission-item">
+        <div class="submission-info">
+          <div class="submission-title">${r.waste_type.charAt(0).toUpperCase() + r.waste_type.slice(1)} Waste</div>
+          <div class="submission-meta">
+            <span class="meta-tag">⚖️ ${r.quantity} kg</span>
+            <span class="meta-tag">📅 ${r.date}</span>
+            ${r.address ? `<span class="meta-tag">📍 ${r.address}</span>` : ''}
           </div>
         </div>
+        <div class="submission-actions">${statusBadge}</div>
+      </div>`;
+  }
 
-        <div class="tip-banner" id="quickTipBanner">
-          <div class="tip-banner-icon">💡</div>
-          <div class="tip-banner-text">
-            <strong>Quick Tip</strong>
-            <p id="tipShort">Loading tip…</p>
-          </div>
-        </div>
+  // ── SUBMIT FORM ──────────────────────────
+  populateCategories();
+  document.getElementById('submitForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const type = document.getElementById('wasteType').value;
+    const qty  = parseFloat(document.getElementById('wasteQty').value) || 0;
+    const addr = document.getElementById('wasteAddr').value.trim();
+    const msgEl = document.getElementById('submitMsg');
 
-        <div class="card">
-          <h4 style="margin-bottom:14px; font-size:16px; color:var(--text2); font-family:var(--font-mono); font-weight:500;">Recent Activity</h4>
-          <div id="recentActivity"></div>
-        </div>
-      </section>
+    if (!type)  { msgEl.textContent = '✗ Please select a waste type.'; msgEl.className = 'form-msg error'; return; }
+    if (qty <= 0){ msgEl.textContent = '✗ Quantity must be greater than 0.'; msgEl.className = 'form-msg error'; return; }
+    if (!addr)  { msgEl.textContent = '✗ Please enter a pickup address.'; msgEl.className = 'form-msg error'; return; }
 
-      <!-- SUBMIT VIEW -->
-      <section id="view-submit" class="view hidden">
-        <div class="card">
-          <h3 style="margin-bottom:20px">Submit Waste Pickup</h3>
-          <form id="submitForm" class="form">
-            <label>Waste type
-              <select id="wasteCategory"></select>
-            </label>
-            <label>Quantity (kg)
-              <input id="wasteQty" type="number" min="0" step="0.1" value="1">
-            </label>
-            <label>Address
-              <textarea id="wasteAddress" rows="3" placeholder="Enter your pickup address…"></textarea>
-            </label>
-            <div class="form-actions">
-              <button type="submit" class="btn">Request Pickup →</button>
-              <button type="button" id="clearUserSubs" class="btn outline">Clear Mine</button>
-            </div>
-            <p id="submitMsg" class="muted small"></p>
-          </form>
-        </div>
-      </section>
+    const s = BW.getStore();
+    s.submissions.push({
+      id: Date.now(),
+      username: sess.username,
+      address: addr,
+      waste_type: type,
+      quantity: qty,
+      status: 'pending',
+      date: new Date().toISOString().slice(0, 10),
+      created_at: new Date().toISOString()
+    });
+    BW.saveStore(s);
 
-      <!-- HISTORY VIEW -->
-      <section id="view-history" class="view hidden">
-        <div class="card">
-          <h3 style="margin-bottom:20px">My Submissions</h3>
-          <div id="mySubmissions"></div>
-        </div>
-      </section>
+    msgEl.textContent = '✓ Pickup request submitted successfully!';
+    msgEl.className = 'form-msg success';
+    document.getElementById('submitForm').reset();
+    populateCategories();
+    BW.toast('Pickup request submitted!', 'success');
+    setTimeout(() => { msgEl.textContent = ''; msgEl.className = 'form-msg'; }, 3000);
+    renderDashboard();
+  });
 
-      <!-- TIPS VIEW -->
-      <section id="view-tips" class="view hidden">
-        <div class="card">
-          <h3 style="margin-bottom:20px">Advisory Tips</h3>
-          <div id="tipsList"></div>
-        </div>
-      </section>
-    </main>
-  </div>
+  document.getElementById('clearMyBtn').addEventListener('click', () => {
+    if (!confirm('Clear all your submissions? This cannot be undone.')) return;
+    const s = BW.getStore();
+    s.submissions = s.submissions.filter(x => x.username !== sess.username);
+    BW.saveStore(s);
+    BW.toast('Your submissions cleared.', 'info');
+    renderDashboard();
+  });
 
-  <script src="js/theme.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/user.js"></script>
+  // ── LOGOUT ────────────────────────────────
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    BW.clearSession();
+    window.location.href = 'login.html';
+  });
+
+  // ── INIT ─────────────────────────────────
+  showView('dashboard');
+</script>
 </body>
 </html>

@@ -1,126 +1,164 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>BioWastex — Smart Waste Segregation</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header class="topbar">
+
+  <nav class="navbar">
     <a href="index.html" class="brand">
-      <img src="assets/biowastex-logo.png" alt="BioWastex" class="logo">
-      <div class="brand-text">
-        <h1>BioWastex</h1>
-        <p class="sub">// smart-waste.ai</p>
+      <img src="assets/biowastex-logo.png" alt="BioWastex" class="brand-logo">
+      <div>
+        <span class="brand-name">BioWastex</span>
+        <span class="brand-tag">// smart-waste.ai</span>
       </div>
     </a>
-    <div class="top-actions">
-      <button id="themeToggle" class="icon-btn" aria-label="Toggle theme" title="Toggle theme">🌙</button>
-      <a class="btn outline" href="login.html">Login</a>
-      <a class="btn" href="register.html">Register →</a>
+    <div class="nav-right">
+      <button class="theme-btn icon-btn" aria-label="Toggle theme">☀️</button>
+      <a href="login.html" class="btn btn-ghost btn-sm">Login</a>
+      <a href="register.html" class="btn btn-primary btn-sm">Get Started →</a>
     </div>
-  </header>
+  </nav>
 
-  <main>
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-inner">
-        <div class="hero-badge">
-          <span></span> Live Demo — Data in Browser
-        </div>
-        <h2>Waste smarter,<br><span class="highlight">not harder.</span></h2>
-        <p class="lead">BioWastex empowers households and communities to segregate waste, schedule pickups, and discover best-practice disposal guides — all in one platform.</p>
-        <div class="hero-ctas">
-          <a class="btn" href="register.html">Get Started Free →</a>
-          <a class="btnoutline" href="#features">See Features</a>
-        </div>
-        <div class="hero-stats">
-          <div class="stat-item">
-            <span class="stat-num">6+</span>
-            <span class="stat-label">Waste Types</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-num">100%</span>
-            <span class="stat-label">Client-Side</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-num">∞</span>
-            <span class="stat-label">Free Forever</span>
-          </div>
-        </div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <div class="hero-inner">
+      <div class="hero-pill">
+        <span class="hero-pill-dot"></span>
+        Open Platform · No Backend · 100% Free
       </div>
-    </section>
-
-    <!-- FEATURES -->
-    <section id="features" class="features container">
-      <span class="section-label">// what we offer</span>
-      <h3>Everything you need to manage waste</h3>
-      <div class="features-grid">
-        <article class="card">
-          <div class="card-icon">♻️</div>
-          <h4>Segregation Tips</h4>
-          <p>Practical guidance for common household items — what to compost, recycle, or treat as hazardous waste.</p>
-        </article>
-        <article class="card">
-          <div class="card-icon">🚛</div>
-          <h4>Request Pickups</h4>
-          <p>Submit pickup requests in seconds. Track status from pending to collected in your personal dashboard.</p>
-        </article>
-        <article class="card">
-          <div class="card-icon">🛠️</div>
-          <h4>Admin Control</h4>
-          <p>Manage waste categories and advisory tips. View analytics and mark submissions as collected.</p>
-        </article>
+      <h1 class="hero-h1">
+        <span class="hero-h1-line1">Waste less,</span>
+        <span class="hero-h1-line2">live greener.</span>
+      </h1>
+      <p class="hero-desc">BioWastex helps households and communities segregate waste, schedule pickups, and learn best-practice disposal — all in one sleek platform.</p>
+      <div class="hero-btns">
+        <a href="register.html" class="btn btn-primary">Create Free Account →</a>
+        <a href="#features" class="btn btn-ghost">See Features</a>
       </div>
-    </section>
-
-    <!-- HOW IT WORKS -->
-    <section class="how-it-works">
-      <div class="container">
-        <span class="section-label">// how it works</span>
-        <h3 class="section-title">Three steps to cleaner communities</h3>
-        <div class="steps-grid">
-          <div class="step-card">
-            <div class="step-num">01</div>
-            <h4>Create Account</h4>
-            <p>Register in seconds. No email or phone number required for this demo.</p>
-          </div>
-          <div class="step-card">
-            <div class="step-num">02</div>
-            <h4>Submit Request</h4>
-            <p>Choose waste type, add quantity and address, then submit your pickup request.</p>
-          </div>
-          <div class="step-card">
-            <div class="step-num">03</div>
-            <h4>Track &amp; Learn</h4>
-            <p>Follow your request status and explore advisory tips for better waste habits.</p>
-          </div>
-          <div class="step-card">
-            <div class="step-num">04</div>
-            <h4>Admin Oversight</h4>
-            <p>Admins manage categories, review all submissions, and mark waste as collected.</p>
-          </div>
+      <div class="hero-stats">
+        <div class="hstat">
+          <span class="hstat-num">6+</span>
+          <span class="hstat-label">Waste Types</span>
+        </div>
+        <div class="hstat">
+          <span class="hstat-num">100%</span>
+          <span class="hstat-label">Client-Side</span>
+        </div>
+        <div class="hstat">
+          <span class="hstat-num">∞</span>
+          <span class="hstat-label">Free Forever</span>
+        </div>
+        <div class="hstat">
+          <span class="hstat-num">0</span>
+          <span class="hstat-label">Servers Needed</span>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- WASTE TYPES -->
-    <section class="waste-types container">
-      <span class="section-label">// supported categories</span>
-      <h3 class="section-title">Waste types we handle</h3>
-      <div class="waste-grid">
-        <div class="waste-chip"><span class="dot" style="background:#4caf50"></span>Organic</div>
-        <div class="waste-chip"><span class="dot" style="background:#2196f3"></span>Plastic</div>
-        <div class="waste-chip"><span class="dot" style="background:#ff9800"></span>Paper</div>
-        <div class="waste-chip"><span class="dot" style="background:#9c27b0"></span>Glass</div>
-        <div class="waste-chip"><span class="dot" style="background:#607d8b"></span>Metal</div>
-        <div class="waste-chip"><span class="dot" style="background:#f44336"></span>Hazardous</div>
+  <!-- FEATURES -->
+  <section id="features" class="section container">
+    <div class="section-eyebrow">What we offer</div>
+    <h2 class="section-title">Everything you need to <span>manage waste</span></h2>
+    <div class="grid-3">
+      <article class="card" style="--delay:0s">
+        <div class="card-icon">♻️</div>
+        <h4>Smart Segregation Tips</h4>
+        <p>Curated admin tips for organic, plastic, glass, metal, paper and hazardous materials — always up to date.</p>
+      </article>
+      <article class="card" style="--delay:0.1s">
+        <div class="card-icon">🚛</div>
+        <h4>Pickup Requests</h4>
+        <p>Submit a pickup in seconds. Track status from Pending to Collected in your personal dashboard.</p>
+      </article>
+      <article class="card" style="--delay:0.2s">
+        <div class="card-icon">🛠️</div>
+        <h4>Admin Control Panel</h4>
+        <p>Manage categories and advice, view analytics charts, and mark submissions as collected.</p>
+      </article>
+      <article class="card" style="--delay:0.3s">
+        <div class="card-icon">🌙</div>
+        <h4>Dark / Light Mode</h4>
+        <p>Toggle between a deep space dark theme and a clean light theme — preference saved automatically.</p>
+      </article>
+      <article class="card" style="--delay:0.4s">
+        <div class="card-icon">📊</div>
+        <h4>Live Analytics</h4>
+        <p>Admin sees a real-time bar chart of submissions per waste type — no server, no database required.</p>
+      </article>
+      <article class="card" style="--delay:0.5s">
+        <div class="card-icon">🔒</div>
+        <h4>Role-Based Auth</h4>
+        <p>Separate user and admin flows with clean session management stored safely in localStorage.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-eyebrow">How it works</div>
+      <h2 class="section-title">Four steps to <span>cleaner communities</span></h2>
+      <div class="grid-4">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <h4>Create Account</h4>
+          <p>Register with a username and password. Choose user or admin role.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <h4>Submit Request</h4>
+          <p>Pick a waste category, add quantity and address, then submit your pickup.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <h4>Track Status</h4>
+          <p>Watch your request move from Pending to Collected in real time.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">04</div>
+          <h4>Learn &amp; Improve</h4>
+          <p>Explore admin-curated tips and build better waste habits every day.</p>
+        </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
-  <footer class="site-footer">
+  <!-- WASTE TYPES -->
+  <section class="section container">
+    <div class="section-eyebrow">Supported categories</div>
+    <h2 class="section-title">Waste types we <span>handle</span></h2>
+    <div class="waste-grid">
+      <div class="waste-chip"><span class="waste-chip-dot" style="background:#4ade80"></span> Organic</div>
+      <div class="waste-chip"><span class="waste-chip-dot" style="background:#60a5fa"></span> Plastic</div>
+      <div class="waste-chip"><span class="waste-chip-dot" style="background:#fb923c"></span> Paper</div>
+      <div class="waste-chip"><span class="waste-chip-dot" style="background:#c084fc"></span> Glass</div>
+      <div class="waste-chip"><span class="waste-chip-dot" style="background:#94a3b8"></span> Metal</div>
+      <div class="waste-chip"><span class="waste-chip-dot" style="background:#f87171"></span> Hazardous</div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="section section-alt">
+    <div class="container" style="text-align:center; max-width:600px; margin:0 auto">
+      <div class="section-eyebrow" style="justify-content:center">Join today</div>
+      <h2 class="section-title" style="margin-bottom:16px">Ready to make a <span>difference</span>?</h2>
+      <p class="text-muted" style="margin-bottom:32px; font-size:16px; line-height:1.75">Create a free account in 10 seconds and start managing your waste like a pro.</p>
+      <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap">
+        <a href="register.html" class="btn btn-lime" style="padding:14px 32px; font-size:15px">Create Account →</a>
+        <a href="login.html" class="btn btn-ghost" style="padding:14px 28px; font-size:15px">Sign In</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
         <img src="assets/biowastex-logo.png" alt="" style="width:28px;height:28px;border-radius:8px;border:1px solid var(--border)">
@@ -131,11 +169,30 @@
         <a href="login.html">Login</a>
         <a href="register.html">Register</a>
       </div>
-      <p class="footer-copy">© 2026 BioWastex — Demo by PrashantBhalerao</p>
+      <p class="footer-copy">© 2026 BioWastex · Built by Prashant Bhalerao</p>
     </div>
   </footer>
 
-  <script src="js/theme.js"></script>
-  <script src="js/animations.js"></script>
+  <script src="js/core.js"></script>
+  <script>
+    BW.initTheme();
+    // Scroll reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.card, .step-card, .waste-chip').forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = `opacity 0.5s ease ${i * 0.06}s, transform 0.5s ease ${i * 0.06}s`;
+      io.observe(el);
+    });
+    document.addEventListener('click', e => {
+      if (e.target.closest('.card, .step-card, .waste-chip') || e.target.classList.contains('revealed')) return;
+    });
+    // Reveal on intersection
+    const style = document.createElement('style');
+    style.textContent = '.revealed { opacity: 1 !important; transform: translateY(0) !important; }';
+    document.head.appendChild(style);
+  </script>
 </body>
 </html>

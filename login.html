@@ -1,62 +1,107 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Login — BioWastex</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header class="topbar small">
-    <a href="index.html" class="brand">
-      <img src="assets/biowastex-logo.png" alt="BioWastex" class="logo">
-      <div class="brand-text"><h1>BioWastex</h1></div>
-    </a>
-    <div class="top-actions">
-      <button id="themeToggleHeader" class="icon-btn" aria-label="Toggle theme">🌙</button>
-      <a class="btn outline" href="index.html">← Home</a>
-    </div>
-  </header>
 
-  <main class="form-page">
-    <div class="form-card">
-      <div class="form-card-header">
-        <img src="assets/biowastex-logo.png" class="logo-lg" alt="logo">
-        <h2>Welcome back</h2>
-        <p>Sign in to your BioWastex account</p>
+  <nav class="navbar compact">
+    <a href="index.html" class="brand">
+      <img src="assets/biowastex-logo.png" alt="BioWastex" class="brand-logo">
+      <div>
+        <span class="brand-name">BioWastex</span>
+      </div>
+    </a>
+    <div class="nav-right">
+      <button class="theme-btn icon-btn" aria-label="Toggle theme">☀️</button>
+      <a href="index.html" class="btn btn-ghost btn-sm">← Home</a>
+    </div>
+  </nav>
+
+  <main class="auth-page">
+    <div class="auth-orb"></div>
+    <div class="auth-card">
+      <img src="assets/biowastex-logo.png" class="auth-logo" alt="logo">
+      <h2 class="auth-title">Welcome back</h2>
+      <p class="auth-sub">Sign in to your BioWastex account</p>
+
+      <div class="demo-hint">
+        <strong>Demo credentials →</strong><br>
+        User: <strong>demoUser</strong> / <strong>user123</strong><br>
+        Admin: <strong>admin</strong> / <strong>admin123</strong>
       </div>
 
-      <form id="loginForm" class="form">
-        <label>Username
-          <input id="loginUsername" required autocomplete="username" placeholder="Enter your username">
-        </label>
+      <form id="loginForm" class="form" novalidate>
+        <div class="field">
+          <label>Username</label>
+          <div class="input-wrap">
+            <span class="field-icon">👤</span>
+            <input id="loginUsername" type="text" placeholder="Enter your username" autocomplete="username" required>
+          </div>
+        </div>
 
-        <label>Password
-          <input id="loginPassword" type="password" required autocomplete="current-password" placeholder="Enter your password">
-        </label>
+        <div class="field">
+          <label>Password</label>
+          <div class="input-wrap">
+            <span class="field-icon">🔑</span>
+            <input id="loginPassword" type="password" placeholder="Enter your password" autocomplete="current-password" required>
+          </div>
+        </div>
 
-        <label>Role
+        <div class="field">
+          <label>Login As</label>
           <select id="loginRole">
             <option value="user">👤 User</option>
             <option value="admin">🛠️ Admin</option>
           </select>
-        </label>
-
-        <div class="form-actions">
-          <button type="submit" class="btn">Sign In →</button>
         </div>
 
-        <p id="loginMessage" class="muted small"></p>
+        <p id="loginMsg" class="form-msg"></p>
+
+        <button type="submit" class="btn btn-primary btn-full" style="padding:13px">Sign In →</button>
       </form>
 
-      <div class="form-footer">
+      <div class="auth-footer">
         Don't have an account? <a href="register.html">Register here</a>
       </div>
     </div>
   </main>
 
-  <script src="js/theme.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/auth.js"></script>
+  <script src="js/core.js"></script>
+  <script>
+    BW.initTheme();
+
+    // If already logged in, redirect
+    const sess = BW.getSession();
+    if (sess) window.location.href = sess.role === 'admin' ? 'admin-dashboard.html' : 'user-dashboard.html';
+
+    const form = document.getElementById('loginForm');
+    const msg  = document.getElementById('loginMsg');
+
+    function setMsg(text, type) {
+      msg.textContent = text;
+      msg.className = 'form-msg ' + (type || '');
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const username = document.getElementById('loginUsername').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+      const role     = document.getElementById('loginRole').value;
+
+      if (!username || !password) { setMsg('⚠️ Please fill in all fields.', 'error'); return; }
+
+      const result = BW.login(username, password, role);
+      if (!result.ok) { setMsg('✗ ' + result.msg, 'error'); return; }
+
+      setMsg('✓ Login successful! Redirecting…', 'success');
+      setTimeout(() => {
+        window.location.href = result.user.role === 'admin' ? 'admin-dashboard.html' : 'user-dashboard.html';
+      }, 700);
+    });
+  </script>
 </body>
 </html>
