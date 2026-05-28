@@ -39,17 +39,10 @@ The project will later be upgraded into a complete full-stack application with:
 
 ## 📷 Screenshots
 
-<img width="1877" height="851" alt="Screenshot 2026-05-27 172104" src="https://github.com/user-attachments/assets/63ca3dfa-3838-4284-afdb-86d3ca240e4c" />
-<img width="1891" height="852" alt="Screenshot 2026-05-27 172233" src="https://github.com/user-attachments/assets/b809ab27-0bd1-420d-8ecc-57d1752c9166" />
-<img width="1893" height="851" alt="Screenshot 2026-05-27 172220" src="https://github.com/user-attachments/assets/5c1d206d-33a4-42d3-b803-6dccd2d00868" />
-<img width="1877" height="852" alt="Screenshot 2026-05-27 172207" src="https://github.com/user-attachments/assets/4f02dbd8-7ddf-4be3-9448-d4b3d5795082" />
-<img width="1870" height="842" alt="Screenshot 2026-05-27 172153" src="https://github.com/user-attachments/assets/9709ca20-2712-4fae-a0d5-017d26cadd19" />
-<img width="1877" height="851" alt="Screenshot 2026-05-27 172104" src="https://github.com/user-attachments/assets/9a399c4f-5e87-4edc-a8c0-c1444a50f014" />
-<img width="1880" height="845" alt="Screenshot 2026-05-27 172132" src="https://github.com/user-attachments/assets/0decc400-190d-450f-9a57-8d52f8fbf28a" />
-
-
-
-
+<img width="1891" height="848" alt="Screenshot 2026-05-28 083640" src="https://github.com/user-attachments/assets/1951b2f0-8f7f-4bf8-853d-829a716d3753" />
+<img width="1884" height="859" alt="Screenshot 2026-05-28 083712" src="https://github.com/user-attachments/assets/a695b132-7757-4b4a-99d5-36800a100518" />
+<img width="1886" height="859" alt="Screenshot 2026-05-28 083849" src="https://github.com/user-attachments/assets/b23a4458-eedc-4f8f-92fd-ab7089339523" />
+<img width="1893" height="860" alt="Screenshot 2026-05-28 083920" src="https://github.com/user-attachments/assets/19156f6f-0c09-4c58-829a-55ace374e000" />
 
 
 ## 🔗 Live Demo
